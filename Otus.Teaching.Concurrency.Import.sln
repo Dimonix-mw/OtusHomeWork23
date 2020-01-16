@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otus.Teaching.Concurrency.Import.Loader", "Otus.Teaching.Concurrency.Import.Loader\Otus.Teaching.Concurrency.Import.Loader.csproj", "{FB35FE31-CBE7-455E-A965-ABF0E9957110}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otus.Teaching.Concurrency.Import.DataAccess", "Otus.Teaching.Concurrency.Import.DataAccess\Otus.Teaching.Concurrency.Import.DataAccess.csproj", "{F355A3DF-6760-403E-BB2E-889FD6957F3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otus.Teaching.Concurrency.Import.Core", "Otus.Teaching.Concurrency.Import.Core\Otus.Teaching.Concurrency.Import.Core.csproj", "{C7A060E6-C607-40A6-A099-107BB53085B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otus.Teaching.Concurrency.Import.DataGenerator.App", "Otus.Teaching.Concurrency.Import.DataGenerator.App\Otus.Teaching.Concurrency.Import.DataGenerator.App.csproj", "{C71DC579-5917-4FA2-A75E-95CE1D58B471}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otus.Teaching.Concurrency.Import.DataGenerator", "Otus.Teaching.Concurrency.Import.DataGenerator\Otus.Teaching.Concurrency.Import.DataGenerator.csproj", "{BBB4B899-2C17-477D-8C0D-BC057DDAFAD2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FB35FE31-CBE7-455E-A965-ABF0E9957110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB35FE31-CBE7-455E-A965-ABF0E9957110}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB35FE31-CBE7-455E-A965-ABF0E9957110}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB35FE31-CBE7-455E-A965-ABF0E9957110}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F355A3DF-6760-403E-BB2E-889FD6957F3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F355A3DF-6760-403E-BB2E-889FD6957F3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F355A3DF-6760-403E-BB2E-889FD6957F3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F355A3DF-6760-403E-BB2E-889FD6957F3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7A060E6-C607-40A6-A099-107BB53085B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7A060E6-C607-40A6-A099-107BB53085B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7A060E6-C607-40A6-A099-107BB53085B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7A060E6-C607-40A6-A099-107BB53085B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C71DC579-5917-4FA2-A75E-95CE1D58B471}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C71DC579-5917-4FA2-A75E-95CE1D58B471}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C71DC579-5917-4FA2-A75E-95CE1D58B471}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C71DC579-5917-4FA2-A75E-95CE1D58B471}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBB4B899-2C17-477D-8C0D-BC057DDAFAD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBB4B899-2C17-477D-8C0D-BC057DDAFAD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBB4B899-2C17-477D-8C0D-BC057DDAFAD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBB4B899-2C17-477D-8C0D-BC057DDAFAD2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+EndGlobal

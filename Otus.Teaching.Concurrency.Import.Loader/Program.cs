@@ -23,7 +23,7 @@ namespace Otus.Teaching.Concurrency.Import.Loader
             
             Console.WriteLine($"Loader started with process Id {Process.GetCurrentProcess().Id}...");
             
-            var loader = new FakeLoader();
+            var loader = new FakeDataLoader();
 
             loader.LoadData();
         }

@@ -9,7 +9,7 @@ namespace Otus.Teaching.Concurrency.Import.DataAccess.Repositories
     {
         public void AddCustomer(Customer customer)
         {
-            
+            //Add customer to data source   
         }
     }
 }

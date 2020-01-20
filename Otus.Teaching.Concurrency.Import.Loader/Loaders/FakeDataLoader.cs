@@ -3,8 +3,8 @@ using System.Threading;
 
 namespace Otus.Teaching.Concurrency.Import.Core.Loaders
 {
-    public class FakeLoader
-        : ILoader
+    public class FakeDataLoader
+        : IDataLoader
     {
         public void LoadData()
         {

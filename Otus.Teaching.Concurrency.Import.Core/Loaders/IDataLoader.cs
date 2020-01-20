@@ -1,6 +1,6 @@
 ﻿namespace Otus.Teaching.Concurrency.Import.Core.Loaders
 {
-    public interface ILoader
+    public interface IDataLoader
     {
         void LoadData();
     }

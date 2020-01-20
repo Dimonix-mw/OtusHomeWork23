@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
+using Otus.Teaching.Concurrency.Import.DataGenerator.Dto;
 using Otus.Teaching.Concurrency.Import.Handler.Data;
 using Otus.Teaching.Concurrency.Import.Handler.Entities;
 
@@ -21,7 +22,10 @@ namespace Otus.Teaching.Concurrency.Import.DataGenerator.Generators
         {
             var customers = RandomCustomerGenerator.Generate(_dataCount);
             using var stream = File.Create(_fileName);
-            new XmlSerializer(typeof(List<Customer>)).Serialize(stream, customers);
+            new XmlSerializer(typeof(CustomersList)).Serialize(stream, new CustomersList()
+            {
+                Customers = customers
+            });
         }
     }
 }

@@ -12,29 +12,8 @@ namespace Otus.Teaching.Concurrency.Import.XmlGenerator
         
         static void Main(string[] args)
         {
-            if (args != null && args.Length > 0)
-            {
-                _dataFileName = Path.Combine(_dataFileDirectory, $"{args[0]}.xml");
-            }
-            else
-            {
-                Console.WriteLine("Data file name is required");
+            if (!TryValidateAndParseArgs(args))
                 return;
-            }
-            
-            if (args.Length > 1)
-            {
-                if (!int.TryParse(args[1], out _dataCount))
-                {
-                    Console.WriteLine("Data must be integer");
-                    return;
-                }
-            }
-            else
-            {
-                Console.WriteLine("Data count is required");
-                return;;
-            }
             
             Console.WriteLine("Generating xml data...");
 
@@ -43,6 +22,30 @@ namespace Otus.Teaching.Concurrency.Import.XmlGenerator
             generator.Generate();
             
             Console.WriteLine($"Generated xml data in {_dataFileName}...");
+        }
+
+        private static bool TryValidateAndParseArgs(string[] args)
+        {
+            if (args != null && args.Length > 0)
+            {
+                _dataFileName = Path.Combine(_dataFileDirectory, $"{args[0]}.xml");
+            }
+            else
+            {
+                Console.WriteLine("Data file name without extension is required");
+                return false;
+            }
+            
+            if (args.Length > 1)
+            {
+                if (!int.TryParse(args[1], out _dataCount))
+                {
+                    Console.WriteLine("Data must be integer");
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

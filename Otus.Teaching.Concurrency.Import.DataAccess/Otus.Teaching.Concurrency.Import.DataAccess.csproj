@@ -5,16 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.0" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\Otus.Teaching.Concurrency.Import.Core\Otus.Teaching.Concurrency.Import.Core.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Parsers" />
     </ItemGroup>
 
 </Project>

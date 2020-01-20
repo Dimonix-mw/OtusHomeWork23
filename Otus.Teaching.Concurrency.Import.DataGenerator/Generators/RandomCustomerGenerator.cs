@@ -26,7 +26,7 @@ namespace Otus.Teaching.Concurrency.Import.DataGenerator.Generators
 
         private static Faker<Customer> CreateFaker()
         {
-            var id = 0;
+            var id = 1;
             var customersFaker = new Faker<Customer>()
                 .CustomInstantiator(f => new Customer()
                 {

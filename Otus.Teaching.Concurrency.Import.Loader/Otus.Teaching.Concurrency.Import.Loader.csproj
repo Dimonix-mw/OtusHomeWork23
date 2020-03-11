@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Otus.Teaching.Concurrency.Import.Core\Otus.Teaching.Concurrency.Import.Core.csproj" />
+      <ProjectReference Include="..\Otus.Teaching.Concurrency.Import.DataGenerator\Otus.Teaching.Concurrency.Import.DataGenerator.csproj" />
     </ItemGroup>
 
     <ItemGroup>

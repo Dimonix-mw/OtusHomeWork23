@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using Otus.Teaching.Concurrency.Import.Core.Loaders;
+using Otus.Teaching.Concurrency.Import.DataGenerator.Generators;
 
 
 namespace Otus.Teaching.Concurrency.Import.Loader
 {
     class Program
     {
-        private static string _dataFilePath;
+        private static string _dataFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "customers.xml");
         
         static void Main(string[] args)
         {
@@ -16,12 +18,10 @@ namespace Otus.Teaching.Concurrency.Import.Loader
             {
                 _dataFilePath = args[0];
             }
-            else
-            {
-                Console.WriteLine("DataFilePath is required");
-            }
-            
+
             Console.WriteLine($"Loader started with process Id {Process.GetCurrentProcess().Id}...");
+
+            GenerateCustomersDataFile();
             
             var loader = new FakeDataLoader();
 
@@ -30,7 +30,8 @@ namespace Otus.Teaching.Concurrency.Import.Loader
 
         static void GenerateCustomersDataFile()
         {
-
+            var xmlGenerator = new XmlGenerator(_dataFilePath, 1000);
+            xmlGenerator.Generate();
         }
     }
 }

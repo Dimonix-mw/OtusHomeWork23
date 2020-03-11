@@ -15,10 +15,10 @@ namespace Otus.Teaching.Concurrency.Import.DataGenerator.Generators
 
             foreach (var customer in customersFaker.GenerateForever())
             {
+                customers.Add(customer);
+
                 if (dataCount == customer.Id)
                     return customers;
-                
-                customers.Add(customer);
             }
 
             return customers;

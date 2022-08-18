@@ -2,17 +2,26 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <LangVersion>8</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Otus.Teaching.Concurrency.Import.Core\Otus.Teaching.Concurrency.Import.Core.csproj" />
+      <ProjectReference Include="..\Otus.Teaching.Concurrency.Import.DataAccess\Otus.Teaching.Concurrency.Import.DataAccess.csproj" />
       <ProjectReference Include="..\Otus.Teaching.Concurrency.Import.DataGenerator\Otus.Teaching.Concurrency.Import.DataGenerator.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

@@ -15,13 +15,13 @@ namespace Otus.Teaching.Concurrency.Import.XmlGenerator
             if (!TryValidateAndParseArgs(args))
                 return;
             
-            Console.WriteLine("Generating xml data...");
+            //Console.WriteLine("Generating xml data...");
 
             var generator = GeneratorFactory.GetGenerator(_dataFileName, _dataCount);
             
             generator.Generate();
             
-            Console.WriteLine($"Generated xml data in {_dataFileName}...");
+            Console.WriteLine(_dataFileName);
         }
 
         private static bool TryValidateAndParseArgs(string[] args)

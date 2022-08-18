@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using Microsoft.Extensions.Configuration;
 using Otus.Teaching.Concurrency.Import.Core.Loaders;
 using Otus.Teaching.Concurrency.Import.DataAccess.Parsers;
@@ -18,6 +20,8 @@ namespace Otus.Teaching.Concurrency.Import.Loader
         private static string _dataFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _dataFileName + ".xml");
         private static int _dataCount;
         private static IConfigurationRoot _config;
+        private static WaitHandle[] _waitHandles;
+        private static Barrier _barrier;
 
         static void Main(string[] args)
         {
@@ -47,10 +51,39 @@ namespace Otus.Teaching.Concurrency.Import.Loader
             var useThreadpool = SettingsApp.GetUseThreadpool(_config);
             var customersDatabaseSettings = SettingsApp.GetDataBaseSettings(_config);
 
-            var loader = new FakeDataLoader(new CustomerRepository(customersDatabaseSettings), customers, countThread, useThreadpool);
-            loader.LoadData();
+            var partitions = customers.Partition(customers.Count / countThread);
+            _waitHandles = new WaitHandle[countThread];
+            _barrier = new Barrier(countThread + 1); 
+
+            for (int i = 0; i < countThread; i++)
+            {
+                _waitHandles[i] = new AutoResetEvent(false);
+                var loader = new FakeDataLoader(new CustomerRepository(customersDatabaseSettings));
+                if (useThreadpool) 
+                    ThreadPool.QueueUserWorkItem(LoadPartition, new ThreadContext(_waitHandles[i], loader, partitions[i]));
+                else
+                    new Thread(LoadPartition).Start(new ThreadContext(_waitHandles[i], loader, partitions[i]));
+            }
+            Console.WriteLine($"Loading data in {countThread} threads...");
+
+            _barrier.SignalAndWait();
+            var sw = new Stopwatch();
+            sw.Start();
+            WaitHandle.WaitAll(_waitHandles);
+            sw.Stop();
+            Console.WriteLine("Loaded data...");
+            Console.WriteLine($"Elapsed time {sw.ElapsedMilliseconds} мс");
         }
 
+        private static void LoadPartition(object threadContext)
+        {
+            ThreadContext context = (ThreadContext)threadContext;
+            AutoResetEvent are = (AutoResetEvent)context.State;
+            _barrier.SignalAndWait();
+            //context.Loader.LoadData(context.Partition);
+            context.Loader.LoadDataEnumerable(context.Partition);
+            are.Set();
+        }
 
         /// <summary>
         /// генерация данных в файл

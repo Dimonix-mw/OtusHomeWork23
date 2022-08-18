@@ -20,6 +20,7 @@ namespace Otus.Teaching.Concurrency.Import.DataAccess.Repositories
 
             _customersCollection = mongoDatabase.GetCollection<Customer>(
                 customersDatabaseSettings.CustomersCollectionName);
+
         }
         public void AddCustomer(Customer customer)
         {

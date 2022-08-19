@@ -5,9 +5,11 @@ using System.IO;
 using System.Threading;
 using Microsoft.Extensions.Configuration;
 using Otus.Teaching.Concurrency.Import.Core.Loaders;
+using Otus.Teaching.Concurrency.Import.Core.Parsers;
 using Otus.Teaching.Concurrency.Import.DataAccess.Parsers;
 using Otus.Teaching.Concurrency.Import.DataAccess.Repositories;
 using Otus.Teaching.Concurrency.Import.DataGenerator.Generators;
+using Otus.Teaching.Concurrency.Import.Handler.Data;
 using Otus.Teaching.Concurrency.Import.Handler.Entities;
 using Otus.Teaching.Concurrency.Import.Loader.Settings;
 using Otus.Teaching.Concurrency.Import.Loader.WorkProcess;
@@ -17,7 +19,7 @@ namespace Otus.Teaching.Concurrency.Import.Loader
     class Program
     {
         private static string _dataFileName = "customers";
-        private static string _dataFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _dataFileName + ".xml");
+        private static string _dataFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _dataFileName);
         private static int _dataCount;
         private static IConfigurationRoot _config;
         private static WaitHandle[] _waitHandles;
@@ -36,7 +38,8 @@ namespace Otus.Teaching.Concurrency.Import.Loader
             //генерация файла с данными, либо созданием отдельного процесса, либо вызовом метода
             GenerateCustomersData(useProcess);
             //десериализация данных с файла в коллекцию
-            var customers = DesializeXmlCustomers();
+            //var customers = DesializeCustomers(new XmlParser(_dataFilePath));
+            var customers = DesializeCustomers(new CSVParser(_dataFilePath));
             //загрузка десериализованных данных 
             LoadCustomersData(customers);
         }
@@ -136,20 +139,21 @@ namespace Otus.Teaching.Concurrency.Import.Loader
             }
             else
             {
-                GenerateCustomersDataFile();
+                //GenerateCustomersDataFile(new XmlGenerator(_dataFilePath + ".xml", _dataCount));
+                _dataFilePath = _dataFilePath + ".csv";
+                GenerateCustomersDataFile(new CSVGenerator(_dataFilePath, _dataCount));
             }
         }
 
         /// <summary>
         /// метод генерации данных файла
         /// </summary>
-        private static void GenerateCustomersDataFile()
+        private static void GenerateCustomersDataFile(IDataGenerator dataGenerator)
         {
             Console.WriteLine($"Loader started from method...");
-            Console.WriteLine("Generating xml data...");
-            var xmlGenerator = new XmlGenerator(_dataFilePath, _dataCount);
-            xmlGenerator.Generate();
-            Console.WriteLine($"Generated xml data in {_dataFilePath}...");
+            Console.WriteLine("Generating data...");
+            dataGenerator.Generate();
+            Console.WriteLine($"Generated data in {_dataFilePath}...");
         }
 
         /// <summary>
@@ -172,9 +176,9 @@ namespace Otus.Teaching.Concurrency.Import.Loader
         /// десериализация данных файла
         /// </summary>
         /// <returns>List<Customer></returns>
-        private static List<Customer> DesializeXmlCustomers()
+        private static List<Customer> DesializeCustomers(IDataParser<List<Customer>> parser)
         {
-            return new XmlParser(_dataFilePath).Parse();
+            return parser.Parse();
         }
 
     }

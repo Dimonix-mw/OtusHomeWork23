@@ -10,6 +10,7 @@
 
     <ItemGroup>
       <PackageReference Include="Bogus" Version="28.4.4" />
+      <PackageReference Include="ServiceStack.Text" Version="6.2.0" />
     </ItemGroup>
 
 </Project>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using XmlDataGenerator = Otus.Teaching.Concurrency.Import.DataGenerator.Generators.XmlGenerator;
 
 namespace Otus.Teaching.Concurrency.Import.XmlGenerator
 {
@@ -14,8 +13,6 @@ namespace Otus.Teaching.Concurrency.Import.XmlGenerator
         {
             if (!TryValidateAndParseArgs(args))
                 return;
-            
-            //Console.WriteLine("Generating xml data...");
 
             var generator = GeneratorFactory.GetGenerator(_dataFileName, _dataCount);
             

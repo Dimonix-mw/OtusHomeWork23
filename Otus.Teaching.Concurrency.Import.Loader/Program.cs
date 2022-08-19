@@ -22,6 +22,7 @@ namespace Otus.Teaching.Concurrency.Import.Loader
         private static IConfigurationRoot _config;
         private static WaitHandle[] _waitHandles;
         private static Barrier _barrier;
+        private static readonly int _countTryLoad = 3;
 
         static void Main(string[] args)
         {
@@ -75,13 +76,50 @@ namespace Otus.Teaching.Concurrency.Import.Loader
             Console.WriteLine($"Elapsed time {sw.ElapsedMilliseconds} мс");
         }
 
+        /// <summary>
+        /// Загружает данные в базу, в случае ошибки пытается загрузить несколько раз
+        /// </summary>
+        /// <param name="threadContext"></param>
         private static void LoadPartition(object threadContext)
         {
             ThreadContext context = (ThreadContext)threadContext;
             AutoResetEvent are = (AutoResetEvent)context.State;
             _barrier.SignalAndWait();
-            //context.Loader.LoadData(context.Partition);
-            context.Loader.LoadDataEnumerable(context.Partition);
+            
+            var countTry = 1;
+            var result = false;
+
+            //загрузка по одному
+            //foreach (var customer in context.Partition)
+            //{
+            //    countTry = 1;
+            //    result = false;
+            //    while (countTry <= _countTryLoad)
+            //    {
+            //        if (context.Loader.LoadData(customer))
+            //        {
+            //            result = true;
+            //            break;
+            //        }
+            //        countTry++;
+            //    }
+            //    if (!result)
+            //        Console.WriteLine($"Поток не смог загрузить customer c id={customer.Id}, использовав {countTry} попытки...");
+            //}
+
+            //загрузка списком
+            while (countTry <= _countTryLoad)
+            {
+                if (context.Loader.LoadDataList(context.Partition))
+                {
+                    result = true;
+                    break;
+                }
+                countTry++;
+            }
+            if (!result)
+                Console.WriteLine($"Поток не смог загрузить данные, использовав {countTry} попытки...");
+            
             are.Set();
         }
 

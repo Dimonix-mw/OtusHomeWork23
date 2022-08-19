@@ -10,26 +10,44 @@ namespace Otus.Teaching.Concurrency.Import.DataAccess.Repositories
         : ICustomerRepository
     {
         private readonly IMongoCollection<Customer> _customersCollection;
+        private readonly MongoClient _mongoClient;
         public CustomerRepository(ICustomersDatabaseSettings customersDatabaseSettings)
         {
-            var mongoClient = new MongoClient(
+            _mongoClient = new MongoClient(
                 customersDatabaseSettings.ConnectionString);
 
-            var mongoDatabase = mongoClient.GetDatabase(
+            var mongoDatabase = _mongoClient.GetDatabase(
                 customersDatabaseSettings.DatabaseName);
-
+            
             _customersCollection = mongoDatabase.GetCollection<Customer>(
                 customersDatabaseSettings.CustomersCollectionName);
 
         }
-        public void AddCustomer(Customer customer)
+        public bool AddCustomer(Customer customer)
         {
-            _customersCollection.InsertOne(customer);
+            try
+            {
+                _customersCollection.InsertOne(customer);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
-        public void AddCustomers(IEnumerable<Customer> customers)
+        public bool AddCustomers(IEnumerable<Customer> customers)
         {
-            _customersCollection.InsertMany(customers);
+            try
+            {
+                _customersCollection.InsertMany(customers);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
         }
     }
 }

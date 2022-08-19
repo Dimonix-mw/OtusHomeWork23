@@ -9,9 +9,7 @@ namespace Otus.Teaching.Concurrency.Import.Loader
     {
         public WaitHandle State { get; }
         public List<Customer> Partition { get; }
-
         public FakeDataLoader Loader { get; }
-
         public ThreadContext(WaitHandle state, FakeDataLoader loader, List<Customer> partition)
         {
             State = state;

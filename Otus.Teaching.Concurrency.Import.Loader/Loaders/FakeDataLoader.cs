@@ -1,6 +1,7 @@
 using Otus.Teaching.Concurrency.Import.Handler.Entities;
 using Otus.Teaching.Concurrency.Import.Handler.Repositories;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Otus.Teaching.Concurrency.Import.Core.Loaders
 {
@@ -13,17 +14,14 @@ namespace Otus.Teaching.Concurrency.Import.Core.Loaders
             _customerRepository = customerRepository;
         }
 
-        public void LoadData(IEnumerable<Customer> customers)
+        public bool LoadData(Customer customer)
         {
-            foreach (var customer in customers)
-            {
-                _customerRepository.AddCustomer(customer);
-            }
+             return _customerRepository.AddCustomer(customer);
         }
 
-        public void LoadDataEnumerable(IEnumerable<Customer> customers)
+        public bool LoadDataList(List<Customer> customers)
         {
-            _customerRepository.AddCustomers(customers);
+            return _customerRepository.AddCustomers(customers);
         }
 
     }

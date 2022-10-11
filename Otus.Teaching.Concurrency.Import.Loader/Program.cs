@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using Microsoft.Extensions.Configuration;
 using Otus.Teaching.Concurrency.Import.Core.Loaders;
@@ -50,12 +51,12 @@ namespace Otus.Teaching.Concurrency.Import.Loader
         /// <param name="customers"></param>
         private static void LoadCustomersData(List<Customer> customers)
         {
-            int countThread = SettingsApp.GetCountThread(_config, customers.Count);
+            int countThread = SettingsApp.GetCountThread(_config, customers.Count());
 
             var useThreadpool = SettingsApp.GetUseThreadpool(_config);
             var customersDatabaseSettings = SettingsApp.GetDataBaseSettings(_config);
 
-            var partitions = customers.Partition(customers.Count / countThread);
+            var partitions = customers.Partition(countThread);
             _waitHandles = new WaitHandle[countThread];
             _barrier = new Barrier(countThread + 1); 
 

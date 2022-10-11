@@ -5,12 +5,13 @@ namespace Otus.Teaching.Concurrency.Import.Loader
 {
     public static class Extensions
     {
-        public static List<List<T>> Partition<T>(this List<T> values, int chunkSize)
+        public static List<List<T>> Partition<T>(this List<T> values, int parts)
         {
-            return values.Select((x, i) => new { Index = i, Value = x })
-                .GroupBy(x => x.Index / chunkSize)
-                .Select(x => x.Select(v => v.Value).ToList())
-                .ToList();
+            int i = 0;
+            var partition = from item in values
+                            group item by i++ % parts into part
+                            select part.ToList();
+            return partition.ToList();
         }
     }
 }
